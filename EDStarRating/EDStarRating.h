@@ -58,6 +58,7 @@ typedef UIImage     EDImage;
 @property (nonatomic) float rating;
 @property (nonatomic) CGFloat horizontalMargin;
 @property (nonatomic) BOOL editable;
+@property (nonatomic) BOOL allowZero;
 @property (nonatomic) EDStarRatingDisplayMode displayMode;
 @property (nonatomic) float halfStarThreshold;
 
