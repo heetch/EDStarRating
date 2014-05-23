@@ -62,7 +62,7 @@ typedef UIImage     EDImage;
 @property (nonatomic) EDStarRatingDisplayMode displayMode;
 @property (nonatomic) float halfStarThreshold;
 
-@property (nonatomic,weak) id<EDStarRatingProtocol> delegate;
+@property (nonatomic) id<EDStarRatingProtocol> delegate;
 @property (nonatomic,copy) EDStarRatingReturnBlock returnBlock;
 @end
 
