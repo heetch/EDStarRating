@@ -27,6 +27,7 @@
 @synthesize delegate=_delegate;
 @synthesize horizontalMargin;
 @synthesize halfStarThreshold;
+@synthesize allowZero;
 @synthesize displayMode;
 #if EDSTAR_MACOSX
 @synthesize backgroundColor=_backgroundColor;
@@ -42,6 +43,7 @@
     maxRating=5.0;
     _rating=0.0;
     horizontalMargin=10.0;
+    allowZero=YES;
     displayMode = EDStarRatingDisplayFull;
     halfStarThreshold=ED_DEFAULT_HALFSTAR_THRESHOLD;
     [self setBackgroundColor:[EDColor clearColor]];
@@ -265,8 +267,9 @@
 #pragma mark Mouse/Touch Interaction
 -(float) starsForPoint:(CGPoint)point
 {
-    float stars=0;
-    for( NSInteger i=0; i<maxRating; i++ )
+    int startValue=allowZero?0:1;
+    float stars=startValue;
+    for( NSInteger i=startValue; i<maxRating; i++ )
     {
         CGPoint p =[self pointOfStarAtPosition:i highlighted:NO];
         if( point.x > p.x )
