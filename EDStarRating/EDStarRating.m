@@ -415,4 +415,57 @@
 }
 #endif
 
+#pragma mark - Accessibility
+
+- (BOOL)isAccessibilityElement {
+    return YES;
+}
+
+- (UIAccessibilityTraits)accessibilityTraits {
+    return UIAccessibilityTraitAdjustable;
+}
+
+- (NSString *)accessibilityLabel {
+    return [NSString stringWithFormat:@"Noter sur %li", (long)self.maxRating];
+}
+
+- (NSString*)accessibilityValue {
+    return [NSString stringWithFormat:@"%.1f sur %li", self.rating, (long)self.maxRating];
+}
+
+- (void)accessibilityIncrement {
+    CGFloat increment = 0.5;
+    
+    if (self.displayMode == EDStarRatingDisplayFull) {
+        increment = 1;
+    }
+    if (self.rating + increment <= self.maxRating) {
+        self.rating += increment;
+    }
+    [self setNeedsDisplay];
+    if( self.delegate && [self.delegate respondsToSelector:@selector(starsSelectionChanged:rating:)] )
+        [self.delegate starsSelectionChanged:self rating:self.rating];
+    
+    if( self.returnBlock)
+        self.returnBlock(self.rating);
+
+}
+
+- (void)accessibilityDecrement {
+    CGFloat increment = 0.5;
+    
+    if (self.displayMode == EDStarRatingDisplayFull) {
+        increment = 1;
+    }
+    if (self.rating - increment >= (self.allowZero ? 0 : increment)) {
+        self.rating -= increment;
+    }
+    [self setNeedsDisplay];
+    if( self.delegate && [self.delegate respondsToSelector:@selector(starsSelectionChanged:rating:)] )
+        [self.delegate starsSelectionChanged:self rating:self.rating];
+    
+    if( self.returnBlock)
+        self.returnBlock(self.rating);
+}
+
 @end
